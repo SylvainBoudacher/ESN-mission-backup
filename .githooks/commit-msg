@@ -20,6 +20,8 @@ with open(commit_msg_filepath, 'r') as f:
     content = f.read()
 
     if re.match(pattern, content):
-        print ("ouioui")
+        print ("Good commit")
     else :
-        print ("nonono")
+        print ("Error : invalid format \n")
+        print ("Title has to be under 50 characters \n")
+        print ("Description is required and must be after a carriage return \n")
