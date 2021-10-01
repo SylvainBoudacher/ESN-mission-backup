@@ -10,16 +10,18 @@ commit_msg_filepath = sys.argv[1]
 
 # Figure out which branch we're on
 branch = check_output(['git', 'symbolic-ref', '--short', 'HEAD']).strip()
-print ("commit-msg: On branch '%s'" % branch)
+print("commit-msg: On branch '%s'" % branch)
 
 # regex pattern
 pattern = '(^([a-zA-Z ]){0,50})\n{2}([a-zA-Z- \n-]*)'
+
+test_string = 'abyss'
 
 
 with open(commit_msg_filepath, 'r') as f:
     content = f.read()
 
     if re.match(pattern, content):
-        print ("ouioui")
+        print("ouioui")
     else :
-        print ("nonono")
+        print("nonono")
