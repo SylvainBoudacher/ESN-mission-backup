@@ -1,24 +1,19 @@
 version: "3"
 services:
-  #PHP Service
+  # Laravel application
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: blog_app
-    restart: unless-stopped
     tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
     volumes:
       - ./blog/:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./site/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
 
-  #Nginx Service
+  # Nginx server
   webserver:
     image: nginx:alpine
     container_name: blog_server
@@ -27,12 +22,12 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./blog/:/var/www
+      - ./site/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
 
-  #MySQL Service
+  #MySQL Database
   db:
     image: mysql:5.7.22
     container_name: blog_db
@@ -41,22 +36,19 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - dbdata:/var/lib/mysql
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./site/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
 
-#Docker Networks
 networks:
   app-network:
     driver: bridge
 
-#Volumes
 volumes:
   dbdata:
     driver: local
