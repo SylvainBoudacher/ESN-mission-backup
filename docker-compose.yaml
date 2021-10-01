@@ -1,0 +1,53 @@
+version: "3"
+services:
+  # Laravel application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog_app
+    tty: true
+    volumes:
+      - ./blog/:/var/www
+      - ./site/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+    env_file:
+      - blog/.env
+
+  # Nginx server
+  webserver:
+    image: nginx:alpine
+    container_name: blog_server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./blog/:/var/www
+      - ./site/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  #MySQL Database
+  db:
+    image: mysql:5.7.22
+    container_name: blog_db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      # - dbdata:/var/lib/mysql
+      - ./site/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
