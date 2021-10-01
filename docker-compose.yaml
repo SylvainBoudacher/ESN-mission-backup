@@ -12,6 +12,8 @@ services:
       - ./site/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - app-network
+    env_file:
+      - blog/.env
 
   # Nginx server
   webserver:
@@ -38,9 +40,10 @@ services:
     environment:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
-      - dbdata:/var/lib/mysql
+      # - dbdata:/var/lib/mysql
       - ./site/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
@@ -48,7 +51,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  dbdata:
-    driver: local

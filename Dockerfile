@@ -13,10 +13,17 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
-    curl
+    curl \
+    libmemcached11 \
+    libmemcachedutil2 \
+    libmemcached-dev 
 
 # Install X-Debug
 RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
+
+# Install memcached
+RUN pecl install memcached-2.2.0
+RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -28,9 +35,6 @@ RUN docker-php-ext-install gd
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install composer dependencies
-# RUN composer install
 
 # Add user for laravel application
 # RUN groupadd -g 1000 www
