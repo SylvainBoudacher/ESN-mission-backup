@@ -52,6 +52,12 @@ git remote set-url --add --push origin git@github.com:sulycate/ESN-mission-backu
 git remote set-url --add --push origin git@gitlab.com:iw-intensive-week-1-2021/groupe-7-iw2.git
 ```
 
+Enfin pour activer les git hooks qui sont définits dans un autre dossier, tapez la commande suivante :
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Auteurs
 
 Ci-dessous, la liste des personnes ayant participé au projet :
