@@ -22,7 +22,7 @@ test_phpunit:
   image: composer:2
   stage: test
   script:
-    - composer install
+    - cd blog/
     - php vendor/bin/phpunit
     - echo "unit test complete"
 
@@ -33,5 +33,5 @@ heroku_deploy:
   only:
     - main
   script:
-    - git push heroku master
+    - git push heroku main
     - echo "deploy complete."
