@@ -22,6 +22,6 @@ with open(commit_msg_filepath, 'r') as f:
     content = f.read()
 
     if re.match(pattern, content):
-        print("ouioui")
+        print("pouetpouet")
     else :
-        print("nonono")
+        print("en bois")
