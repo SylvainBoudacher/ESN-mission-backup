@@ -18,7 +18,6 @@ class HelperController extends Controller
         $date = new DateTime();
         
         return new JsonResponse([
-            'status' => 'success',
             'time' => $date->getTimestamp(),
         ]);
     }
