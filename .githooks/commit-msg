@@ -13,7 +13,7 @@ branch = check_output(['git', 'symbolic-ref', '--short', 'HEAD']).strip()
 print ("commit-msg: On branch '%s'" % branch)
 
 # regex pattern
-pattern = '(^([a-zA-Z ]){0,50})\n{2}([a-zA-Z- \n-]*)'
+pattern = '(^([a-zA-Z -]){0,50})\n{2}([a-zA-Z- \n-]*)'
 
 
 with open(commit_msg_filepath, 'r') as f:
