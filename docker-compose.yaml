@@ -43,7 +43,6 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
-      # - dbdata:/var/lib/mysql
       - ./site/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
