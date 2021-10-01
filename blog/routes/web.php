@@ -11,4 +11,7 @@
 |
 */
 
+
 $app->get('/', ListingController::class);
+
+$app->get('/time', HelperController::class);
