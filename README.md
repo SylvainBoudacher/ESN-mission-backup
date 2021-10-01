@@ -54,7 +54,7 @@ git remote set-url --add --push origin git@gitlab.com:iw-intensive-week-1-2021/g
 
 ## Auteurs
 
-Ci-dessous, la liste des personnes ayant particié au projet :
+Ci-dessous, la liste des personnes ayant participé au projet :
 
 | Nom                      | Email                       |
 | ------------------------ | --------------------------- |
